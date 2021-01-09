@@ -34,14 +34,12 @@ export class MoviesController {
 
   @Patch(':id') // Update part of resource.
   patchById(@Param('id') movieId: string, @Body() updateData) {
-    return {
-      updatedMovie: movieId,
-      ...updateData,
-    };
+    return this.moviesService.updateById(movieId, updateData);
   }
 
   @Delete(':id')
   deleteById(@Param('id') movieId: string) {
-    return this.moviesService.deleteById(movieId);
+    this.getById(movieId);
+    this.moviesService.deleteById(movieId);
   }
 }
