@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMovieDTO } from './dto/create-movie.dto';
+import { UpdateMovieDTO } from './dto/update-movie.dto';
 import { Movie } from './entities/movie.entity';
 
 @Injectable()
@@ -11,8 +12,8 @@ export class MoviesService {
     return this.movies;
   }
 
-  getById(id: string): Movie {
-    const movie = this.movies.find((movie) => movie.id === Number(id));
+  getById(id: number): Movie {
+    const movie = this.movies.find((movie) => movie.id === id);
     if (!movie) {
       throw new NotFoundException(`Movie with ID ${id} not found`);
     }
@@ -26,14 +27,14 @@ export class MoviesService {
     });
   }
 
-  updateById(id: string, updateData) {
+  updateById(id: number, updateData: UpdateMovieDTO) {
     const movie = this.getById(id);
     this.deleteById(id);
     this.movies.push({ ...movie, ...updateData });
   }
 
-  deleteById(id: string): boolean {
-    this.movies = this.movies.filter((movie) => movie.id !== Number(id));
+  deleteById(id: number): boolean {
+    this.movies = this.movies.filter((movie) => movie.id !== id);
     return true;
   }
 }

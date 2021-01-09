@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Param, Post, Patch, Body, Query } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post, Patch, Body, Query, Put } from '@nestjs/common';
 import { CreateMovieDTO } from './dto/create-movie.dto';
+import { UpdateMovieDTO } from './dto/update-movie.dto';
 import { Movie } from './entities/movie.entity';
 import { MoviesService } from './movies.service';
 
@@ -18,7 +19,7 @@ export class MoviesController {
   }
 
   @Get(':id')
-  getById(@Param('id') movieId: string): Movie {
+  getById(@Param('id') movieId: number): Movie {
     // Prefix id === Param('id') will work.
     return this.moviesService.getById(movieId);
   }
@@ -34,12 +35,12 @@ export class MoviesController {
   // }
 
   @Patch(':id') // Update part of resource.
-  patchById(@Param('id') movieId: string, @Body() updateData) {
+  patchById(@Param('id') movieId: number, @Body() updateData: UpdateMovieDTO) {
     return this.moviesService.updateById(movieId, updateData);
   }
 
   @Delete(':id')
-  deleteById(@Param('id') movieId: string) {
+  deleteById(@Param('id') movieId: number) {
     this.getById(movieId);
     this.moviesService.deleteById(movieId);
   }
