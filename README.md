@@ -62,3 +62,8 @@ app.useGlobalPipes(
   }),
 );
 ```
+
+## ETC
+
+- NestJS는 Express 위에서 돌아갑니다.
+- 하지만 Express, Fastify 두가지 프레임워크를 모두 지원하기에 Only NestJS에 맞게 작성하는 게 좋습니다.
